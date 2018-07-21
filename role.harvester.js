@@ -24,21 +24,50 @@ var roleHarvester = {
     },
 
     deposit: function(creep){
-        var spawn = Game.spawns[Object.keys(Game.spawns)[0]]
-        var controller = creep.room.controller
-        if (spawn.energyCapacity > spawn.energy){
-            if(creep.transfer(spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-                creep.moveTo(spawn)
+        if (creep.memory.deposit){
+            if (creep.carry.energy == 0){
+                creep.memory.deposit = null
             }
+
+            if (creep.memory.deposit != 'controller'){
+                var depo = Game.getObjectById(creep.memory.deposit)
+                if (creep.transfer(depo, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(depo)
+                } else {
+                    creep.memory.deposit = null
+                }
+            } else {
+                var controller = creep.room.controller
+                if (creep.upgradeController(controller) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(controller)
+                }
+                roleHarvester.getDepositTarget(creep)
+            }
+            
         } else {
-            if(creep.upgradeController(controller) == ERR_NOT_IN_RANGE){
-                creep.moveTo(controller)
-            }
+            roleHarvester.getDepositTarget(creep)
+
         }
     },
 
-    findMiningSpot: function(creep){
-        
+    getDepositTarget: function(creep){
+        var room = creep.room
+        var storage = room.find(
+            FIND_MY_STRUCTURES,
+            {
+                filter: (i) =>
+                    (
+                        i.structureType == STRUCTURE_SPAWN ||
+                        i.structureType == STRUCTURE_EXTENSION
+                    ) &&
+                    i.energy < i.energyCapacity
+            }
+        )
+        if (storage.length > 0){
+            creep.memory.deposit = storage[0].id    
+        } else {
+            creep.memory.deposit = 'controller'
+        }
     },
 
     spawn: function(spawn){

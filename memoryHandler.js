@@ -1,6 +1,11 @@
 var memoryHandler = {
   run: function(){
     // Make sure memory is initialized
+    if(!Memory.rooms){
+      Memory.rooms = {}
+      Memory.rooms[Game.spawns[Object.keys(Game.spawns)[0]].room] = true
+      
+    }
     if(!Memory.repairList){
       Memory.repairList = [];
     }

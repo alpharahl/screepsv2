@@ -27,7 +27,7 @@ var roleMiner = {
       [
         WORK,
         WORK,
-        MOVE,
+        WORK,
         MOVE
       ],
       'Miner' + Game.time,
