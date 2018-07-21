@@ -1,5 +1,6 @@
 var roleHarvester = require('role.harvester');
 var roleBuilder = require('role.builder');
+var roleMiner = require('role.miner');
 
 var creepManager = {
   run: function(){
@@ -9,7 +10,7 @@ var creepManager = {
     }
     var desired = {
       'Harvester': 1,
-      'Builder':1
+      'Builder':0
     }
 
     var creepList = {
@@ -45,6 +46,7 @@ var creepManager = {
       case 'Builder':
         roleBuilder.spawn(spawn);
         break;
+        
     }
   }
 }

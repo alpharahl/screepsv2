@@ -1,16 +1,11 @@
 var creepManager = require('creepManager');
-var repairManager = require('repairManager')
-var containerPlacer = require('containerPlacer');
 var creepHandler = require('creepHandler');
+var memoryHandler = require('memoryHandler');
+var buildingManager = require('buildingManager');
 
 module.exports.loop = function () {
-  // Make sure memory is initialized
-  if(!Memory.repairList){
-    Memory.repairList = []
-  }
-
-  repairManager.run();
-  containerPlacer.run();
+  memoryHandler.run();
+  buildingManager.run();
   creepManager.run();
   creepHandler.run();
 }

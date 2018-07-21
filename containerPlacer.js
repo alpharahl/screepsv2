@@ -5,7 +5,7 @@ var containerPlacer = {
       var sources = room.find(FIND_SOURCES)
       for (var s in sources){
         var pos = sources[s].pos
-        if( pos.findInRange(FIND_MY_STRUCTURES,
+        if( pos.findInRange(FIND_STRUCTURES,
           { 
             filter: 
               {structureType: STRUCTURE_CONTAINER}

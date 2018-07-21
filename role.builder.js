@@ -1,3 +1,5 @@
+var roleCreep = require('role.creep');
+
 var roleBuilder = {
 
   /** @param {Creep} creep **/
@@ -11,7 +13,10 @@ var roleBuilder = {
       if(creep.memory.building){
         roleBuilder.build(creep);
       }else{
-        roleBuilder.gather(creep);
+        roleCreep.pickup(creep);
+        if (creep.carryCapacity == creep.carry.energy){
+          creep.memory.building = true
+        }
       }
   },
 
@@ -19,9 +24,8 @@ var roleBuilder = {
     spawn.spawnCreep(
         [
             WORK,
+            WORK,
             CARRY,
-            CARRY,
-            MOVE,
             MOVE
         ],
         'Builder' + Game.time,
@@ -31,19 +35,6 @@ var roleBuilder = {
             }
         }
     )
-  },
-
-  gather: function(creep){
-    if (creep.carry.energy == creep.carryCapacity){
-      creep.memory.building = true;
-    }
-
-    var source = creep.pos.findClosestByPath(
-      FIND_SOURCES
-    )
-    if (creep.harvest(source) == ERR_NOT_IN_RANGE){
-      creep.moveTo(source)
-    }
   },
 
   build: function(creep){

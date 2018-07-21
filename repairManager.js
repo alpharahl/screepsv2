@@ -11,13 +11,26 @@ var repairManager = {
 
 
     // check to see if anything needs repairs
-    var structures = Game.structures;
-    for(var name in structures){
-      var struct = structures[name];
-      if (struct.hits < struct.hitsMax - 500){
-        Memory.repairList.push(structure.id)
+    for(var r in Game.rooms){
+      var room = Game.rooms[r]
+      var structures = room.find(
+        FIND_STRUCTURES,
+        {
+          filter: {
+            structureType: STRUCTURE_CONTAINER
+          }
+        }
+      );
+      for(var name in structures){
+        var struct = structures[name];
+        if (struct.hits < struct.hitsMax - 500){
+          if(Memory.repairList.indexOf(struct.id) == -1){
+            Memory.repairList.push(struct.id)
+          }
+        }
       }
     }
+    
   }
 }
 

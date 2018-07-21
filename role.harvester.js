@@ -1,3 +1,5 @@
+var roleCreep = require('role.creep');
+
 var roleHarvester = {
 
     /** @param {Creep} creep **/
@@ -11,9 +13,7 @@ var roleHarvester = {
             (creep.memory.depositing == false || creep.memory.depositing == null)
         ) {
             var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
-            }
+            roleCreep.pickup(creep);
         }
         else {
             if (creep.carry.energy == creep.carryCapacity){
@@ -37,10 +37,13 @@ var roleHarvester = {
         }
     },
 
+    findMiningSpot: function(creep){
+        
+    },
+
     spawn: function(spawn){
         spawn.spawnCreep(
             [
-                WORK,
                 WORK,
                 CARRY,
                 MOVE
