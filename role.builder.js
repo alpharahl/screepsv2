@@ -38,7 +38,7 @@ var roleBuilder = {
   },
 
   build: function(creep){
-    if(Memory.rooms[creep.room]){
+    if(Memory.rooms[creep.room.name]){
       var site = creep.pos.findClosestByPath(
         FIND_MY_CONSTRUCTION_SITES
       )

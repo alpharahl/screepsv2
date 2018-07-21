@@ -1,20 +1,9 @@
+var roleCreep = require('role.creep');
+
 var roleMiner = {
   run: function(creep){
-    if(creep.memory.moving == true){
-      roleMiner.move(creep);
-    } else {
-      roleMiner.mine(creep);
-    }
-  },
-
-  move: function(creep){
-    // Move to desired spot
-    var mine=creep.memory.mine
-    if (!creep.pos.isEqualTo(mine.x, mine.y)){
-      creep.moveTo(mine.x, mine.y)
-    } else {
-      creep.memory.moving = false
-    }
+    roleCreep.navigate(creep);
+    roleMiner.mine(creep);
   },
 
   mine: function(creep){
@@ -28,15 +17,15 @@ var roleMiner = {
         WORK,
         WORK,
         WORK,
+        WORK,
         MOVE
       ],
       'Miner' + Game.time,
       {
         memory: {
           type: 'Miner',
-          mine: pos,
-          moving: true,
-          source: s
+          source: s,
+          dest: new RoomPosition(pos.x, pos.y, pos.roomName)
         }
       }
     )

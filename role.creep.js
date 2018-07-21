@@ -1,4 +1,15 @@
 var roleCreep = {
+  navigate: function(creep){
+    var dest = creep.memory.dest
+    if (dest){
+      if(creep.pos.isEqualTo(dest.x, dest.y)){
+        creep.memory.dest = null
+      } else {
+        creep.moveTo(new RoomPosition(dest.x, dest.y, dest.roomName))
+      }
+    }
+  },
+
   gather: function(creep){
     
   },
@@ -20,6 +31,11 @@ var roleCreep = {
   },
 
   getPickupLocation(creep){
+    
+    if (Memory.controllerContainers[creep.room.controller.id]){
+      creep.memory.pickup = Memory.controllerContainers[creep.room.controller.id]
+      return;
+    }
     var pos = creep.pos
     var storage = pos.findClosestByPath(
       FIND_STRUCTURES,

@@ -1,5 +1,34 @@
 var containerPlacer = {
   run: function(){
+      containerPlacer.minerContainers();
+      containerPlacer.controllerContainer();
+  },
+
+  controllerContainer: function(){
+    for (var r in Memory.rooms){
+      if (Memory.controllerContainers[r] == null){
+        var room = Game.rooms[r]
+        var controllerPos = room.controller.pos
+        var spawn = room.find(
+          FIND_MY_STRUCTURES,
+          {
+            filter: {
+              structureType: STRUCTURE_SPAWN
+            }
+          }
+        )[0]
+
+        containerLocation = controllerPos.findPathTo(spawn)[2]
+        // room.createConstructionSite(
+        //   containerLocation.x,
+        //   containerLocation.y,
+        //   STRUCTURE_CONTAINER
+        // )
+      }
+    }
+  },
+
+  minerContainers: function(){
     for(var r in Game.rooms){
       var room = Game.rooms[r];
       var sources = room.find(FIND_SOURCES)
@@ -18,8 +47,8 @@ var containerPlacer = {
             STRUCTURE_CONTAINER
           )
         }
-      } 
-    }
+      }
+    } 
   },
 
   getEmpty: function(pos, room){

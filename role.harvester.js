@@ -4,6 +4,7 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        roleCreep.navigate(creep);
         if (creep.memory.depositing){
             if (creep.carry.energy == 0){
                 creep.memory.depositing = false;
@@ -12,7 +13,6 @@ var roleHarvester = {
         if(creep.carry.energy < creep.carryCapacity &&
             (creep.memory.depositing == false || creep.memory.depositing == null)
         ) {
-            var sources = creep.room.find(FIND_SOURCES);
             roleCreep.pickup(creep);
         }
         else {
@@ -73,6 +73,8 @@ var roleHarvester = {
     spawn: function(spawn){
         spawn.spawnCreep(
             [
+                WORK,
+                WORK,
                 WORK,
                 CARRY,
                 MOVE
