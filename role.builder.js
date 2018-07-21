@@ -50,9 +50,20 @@ var roleBuilder = {
     var site = creep.pos.findClosestByPath(
       FIND_MY_CONSTRUCTION_SITES
     )
-    if (creep.build(site) == ERR_NOT_IN_RANGE){
-      creep.moveTo(site)
+    if (site){
+      if (creep.build(site) == ERR_NOT_IN_RANGE){
+        creep.moveTo(site)
+      }  
+    } else {
+      // Nothing to build, lets repair
+      if(Memory.repairList.length > 0){
+        var target = Game.getObjectById(Memory.repairList[0])
+        if (creep.repair(target) == ERR_NOT_IN_RANGE){
+          creep.moveTo(target)
+        }
+      }
     }
+    
   },
 
   idle: function(creep, spawn){
