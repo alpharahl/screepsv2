@@ -35,6 +35,23 @@ var roleHarvester = {
                 creep.moveTo(controller)
             }
         }
+    },
+
+    spawn: function(spawn){
+        spawn.spawnCreep(
+            [
+                WORK,
+                WORK,
+                CARRY,
+                MOVE
+            ],
+            'Harvester' + Game.time,
+            {
+                memory: {
+                    type: 'Harvester'
+                }
+            }
+        )
     }
 };
 
