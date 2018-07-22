@@ -8,6 +8,17 @@ var roleCreep = {
         creep.moveTo(new RoomPosition(dest.x, dest.y, dest.roomName))
       }
     }
+
+    var located = false
+    for (var r in Memory.roadList){
+      var spot = Memory.roadList[r]
+      if(creep.pos.isEqualTo(spot.x, spot.y)){
+        located = true
+      }
+    }
+    if(!located){
+      Memory.roadList.push(creep.pos)
+    }
   },
 
   gather: function(creep){

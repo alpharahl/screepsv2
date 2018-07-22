@@ -12,14 +12,15 @@ var roleMiner = {
   },
 
   spawn: function(spawn, pos, s){
+    var spawnList = [MOVE, MOVE]
+    //subtract 100 for the move nodes
+    var energyA = spawn.room.energyAvailable - 100
+
+    for (var i=0; i < Math.floor(energyA/100); i++){
+      spawnList = spawnList.concat([WORK])
+    }
     spawn.spawnCreep(
-      [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        MOVE
-      ],
+      spawnList,
       'Miner' + Game.time,
       {
         memory: {

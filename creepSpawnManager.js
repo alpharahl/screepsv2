@@ -28,7 +28,7 @@ var creepSpawner = {
   },
 
   handleRepairers: function(spawn){
-    var desired = 1;
+    var desired = 0;
     var current = 0;
     for (var name in Game.creeps){
       if(Game.creeps[name].memory.type == 'Repairer'){
@@ -66,7 +66,7 @@ var creepSpawner = {
           actualBuilders ++
         }
       }
-      if (actualBuilders < desiredBuilders){
+      if (actualBuilders < desiredBuilders  && actualBuilders < 2){
         roleBuilder.spawn(spawn)
       }
     }

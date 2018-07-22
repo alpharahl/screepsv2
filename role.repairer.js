@@ -7,8 +7,9 @@ var roleRepairer = {
     if (creep.memory.repairTarget){
       roleRepairer.repair(creep)
     } else {
-      if(Memory.repairList.length > 0){
+      if(Memory.repairList && Memory.repairList.length > 0){
         creep.memory.repairTarget = Memory.repairList[0]
+        Memory.repairList = null
       }
     }
   },

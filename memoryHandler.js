@@ -10,6 +10,9 @@ var memoryHandler = {
     if (!Memory.controllerContainers){
       Memory.controllerContainers = {}
     }
+    if(!Memory.roadList){
+      Memory.roadList = []
+    }
     if(!Memory.repairList){
       Memory.repairList = [];
     }
@@ -42,6 +45,23 @@ var memoryHandler = {
     memoryHandler.manageMinerMemory();
     memoryHandler.manageHaulerMemory();
     memoryHandler.manageControllerContainerMemory();
+    memoryHandler.manageRoadList();
+  },
+
+  manageRoadList: function(){
+    if (Object.keys(Game.constructionSites).length < 5){
+      for (var position in Memory.roadList){
+        var posClean = Memory.roadList[position]
+        var pos = new RoomPosition(
+          posClean.x,
+          posClean.y,
+          posClean.roomName
+        )
+        pos.createConstructionSite(STRUCTURE_ROAD)
+        return;
+      }
+    }
+    
   },
 
   manageMinerMemory: function(){

@@ -17,7 +17,9 @@ var repairManager = {
         FIND_STRUCTURES,
         {
           filter: {
-            structureType: STRUCTURE_CONTAINER
+            structureType: STRUCTURE_CONTAINER,
+            structureType: STRUCTURE_ROAD,
+            structureType: STRUCTURE_TOWER
           }
         }
       );

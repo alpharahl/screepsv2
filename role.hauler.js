@@ -44,7 +44,11 @@ var roleHauler = {
         filter: (i) =>
           (
             i.structureType == STRUCTURE_SPAWN ||
-            i.structureType == STRUCTURE_EXTENSION
+            i.structureType == STRUCTURE_EXTENSION ||
+            (
+              i.structureType == STRUCTURE_TOWER &&
+              i.energy < i.energyCapacity - 300
+            )
           ) &&
           i.energy < i.energyCapacity
       }
@@ -59,18 +63,15 @@ var roleHauler = {
 
   spawn: function(spawn, pickupId, sourceId){
     console.log("Spawning a hauler")
+    var ratio = [CARRY, CARRY, MOVE];
+    var energyA = spawn.room.energyAvailable;
+    var spawnList = []
+    for (var i = 0; i < Math.floor(energyA/150); i++){
+      spawnList = spawnList.concat(ratio)
+    }
+    console.log(spawnList)
     spawn.spawnCreep(
-      [
-        CARRY,
-        CARRY,
-        CARRY,
-        CARRY,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE
-      ],
+      spawnList,
       "Hauler" + Game.time,
       {
         memory: {
